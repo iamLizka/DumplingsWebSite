@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="static/css/recipes.css">
+
+<div class="fon-form">
+    <div class="title">Добавление рецепта</div>
+    <form class="recipes" action="" method="post">
+        {{ form.csrf_token }}
+        <p class="form-recipes">
+            {{ form.name.label }}<br>
+            {{ form.name(class="form-control", type="name") }}<br>
+        </p>
+        <p class="form-recipes">
+            {{ form.time.label }}<br>
+            {{ form.time(class="form-control", type="time") }}<br>
+        </p>
+        <p class="form-recipes">
+            {{ form.text.label }}<br>
+            {{ form.text(class="form-control", type="text") }}<br>
+        </p>
+
+        <p class="agree">{{ form.is_private() }} {{ form.is_private.label }}</p>
+
+        <div class="file-input-container">
+            <label class="label" for="photo">Приложите фотографию</label>
+            {{ form.photo(class="form-control-file", id="photo", type="file") }}<br>
+        </div>
+
+        <div>
+            <p class="entrance">{{ form.submit(type="submit", class="btn") }}</p>
+            {% if message %}
+            <div class="entrance msg alert alert-danger">{{ message }}</div>
+            {% endif %}
+        </div>
+        </p>
+    </form>
+</div>
+
+
+{% endblock %}

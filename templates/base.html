@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/base.css">
+
+</head>
+
+
+<body>
+    <header>
+      <a href="#" class="logo">PELME</a>
+
+     <nav>
+         <ul>
+             <li><a href="recipes">Рецепты</a></li>
+             <li><a href="/">Главная</a></li>
+             <li><a href="">Рестораны</a></li>
+         </ul>
+     </nav>
+
+    {% if current_user.is_authenticated %}
+     <div class="avatar">
+      <li><img src="https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png">
+         <ul>
+            <li><a href="my_recipes">Мои рецепты</a></li>
+            <li><a href="#">Сменить аватарку</a></li>
+            <li><a href="/logout">Выйти</a></li>
+         </ul>
+      </li>
+     </div>
+   {% else %}
+    <div class="buttons">
+        <button class="btn-regist" type="button" onclick="location.href='regist'">Регистрация</button>
+        <button class="btn-come" type="button" onclick="location.href='login'">Войти</button>
+    </div>
+
+   {% endif %}
+
+   </header>
+
+   <div class="fon"></div>
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+</body>
+</html>
+

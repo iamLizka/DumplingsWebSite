@@ -1,0 +1,59 @@
+.field {
+    width: 60%;
+    margin: 0 auto;
+    background-color: #ffffff;
+    margin-top: 80px;
+    height: 1000px;
+    margin-bottom:15px;
+    position: relative;
+}
+
+.name {
+    position: relative;
+    background-color: #ffffff;
+    color: #4d4d4d;
+    font-style: italic;
+    left: 10%;
+    top: 30px;
+    margin-bottom: 50px;
+    font-weight: 600;
+    font-size: 0.8cm;
+    width: 60%;
+}
+
+.recipe {
+    background-color: #ffffff;
+}
+
+.text {
+    background-color: #ffffff;
+    color: #4d4d4d;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-weight: 200;
+    font-size: 0.5cm;
+    margin-bottom: 20px;
+    line-height: 150%;
+}
+
+.time {
+    background-color: #ffffff;
+    color: #4d4d4d;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-weight: 200;
+    font-size: 0.45cm;
+    font-style: italic;
+}
+
+.form-group {
+    background-color: #ffffff;
+    margin-left: 5%;
+    margin-right: 5%;
+
+}
+
+.label,
+.form-control-file {
+    background-color: #ffffff;
+}

@@ -1,0 +1,54 @@
+.all {
+   background-color: #dcdcdc;
+}
+
+html {
+  overflow-x: hidden;
+  margin-right: calc(-1 * (100vw - 100%));
+}
+
+.block-fon {
+   top: 60px;
+   position: relative;
+   height: 400px;
+}
+
+.block-fon img {
+   height: 100%;
+   display: auto;
+}
+
+.title {
+   color: #666666;
+   position: absolute;
+   top: 15%;
+   left: 50%;
+   transform: translate(-50%, -25%);
+   font-size: 2.3cm;
+   font-family: Comic Sans MS;
+}
+
+.tagline {
+   color: #666666;
+   position: absolute;
+   top: 33%;
+   left: 50%;
+   transform: translate(-50%, -40%);
+   font-size: 0.6cm;
+   font-family: Cascadia Code;
+}
+
+
+
+#fon, #logo {
+   position: relative;
+}
+
+#logo {
+   top: -300px;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+
