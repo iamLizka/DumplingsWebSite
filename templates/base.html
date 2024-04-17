@@ -20,13 +20,13 @@
          <ul>
              <li><a href="recipes">Рецепты</a></li>
              <li><a href="/">Главная</a></li>
-             <li><a href="">Рестораны</a></li>
+             <li><a href="restaurants">Рестораны</a></li>
          </ul>
      </nav>
 
     {% if current_user.is_authenticated %}
      <div class="avatar">
-      <li><img src="https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png">
+      <li><img class="img-avatar" src="https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png">
          <ul>
             <li><a href="my_recipes">Мои рецепты</a></li>
             <li><a href="#">Сменить аватарку</a></li>

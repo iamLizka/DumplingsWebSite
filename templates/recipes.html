@@ -16,19 +16,21 @@
             <div class="empty"></div>
         {% endif %}
 
-        {% for item in recipes%}
+        {% for item in recipes %}
         <form action="/read_recipe" method="post">
             <input type="hidden" name="recipe" value="{{item.id}}">
             <button type="submit" name="submit" class="col col-md6 border rounded">
                 <div class="fields">
-                    <h1 class="name">{{item.name}}</h1>
-                    <h6 class="time">Время приготовления: {{item.time}}</h6>
-                    <h6 class="recipe">Рецепт: {{item.text[:70]}}</h6>
+                    <h1 class="name">{{ item.name }}</h1>
+                    <h6 class="time">Время приготовления: {{ item.time }}</h6>
+                    <h6 class="recipe">Рецепт: {{ item.text[:70] }}</h6>
                 </div>
                 <div class="author-date">
 
-                    <div class="author">Автор - {{item.user.name}}</div>
-                    <div class="date">Опубликовано - {{item.modified_date}}</div>
+                    <div class="author">Автор - {{ item.user.name }}</div>
+                    <div class="date">
+                        Опубликовано - {{ item.modified_date.date() }} в {{ item.modified_date.hour }}:{{ item.modified_date.minute }}
+                    </div>
                 </div>
             </button>
         </form>
@@ -36,10 +38,5 @@
         {% endfor %}
 
     </div>
-
-
-
-
-
 
 {% endblock %}

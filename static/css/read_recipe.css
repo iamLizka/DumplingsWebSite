@@ -3,8 +3,7 @@
     margin: 0 auto;
     background-color: #ffffff;
     margin-top: 80px;
-    height: 1000px;
-    margin-bottom:15px;
+    margin-bottom:25px;
     position: relative;
 }
 
@@ -13,7 +12,7 @@
     background-color: #ffffff;
     color: #4d4d4d;
     font-style: italic;
-    left: 10%;
+    margin-left: 5%;
     top: 30px;
     margin-bottom: 50px;
     font-weight: 600;
@@ -23,6 +22,7 @@
 
 .recipe {
     background-color: #ffffff;
+    word-break: break-all;
 }
 
 .text {
@@ -56,4 +56,22 @@
 .label,
 .form-control-file {
     background-color: #ffffff;
+}
+
+.photo {
+    background-color: #ffffff;
+    position: relative;
+    max-width: 50%;
+    max-width: 50%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 50px;
+    bottom: 30px;
+}
+
+.photo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    background: white;
 }

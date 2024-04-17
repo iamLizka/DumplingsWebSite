@@ -1,19 +1,30 @@
-from flask import Flask, render_template, redirect, make_response, url_for, request
+import os
+import flask
+import requests
+
+from flask import Flask, render_template, redirect, make_response, url_for, request, flash, send_from_directory
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_uploads import UploadSet, configure_uploads, IMAGES
+from urllib.parse import urlsplit
 from data import db_session
 from data.users import User
 from data.recipes import Recipes
 from forms.login import LoginForm
 from forms.regist import RegisterForm
-from forms.recipe import RecipeForm
+from forms.recipe import *
 
 
 app = Flask(__name__)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['UPLOADED_PHOTOS_DEST'] ='./static/uploads'
+
+photos = UploadSet('photos', IMAGES)
+configure_uploads(app, photos)
 
 
 @login_manager.user_loader
@@ -43,7 +54,11 @@ def login():
 
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            return redirect(url_for('home_user'))
+
+            next_page = request.args.get('next')
+            if not next_page or urlsplit(next_page).netloc != '':
+                next_page = url_for('home')
+            return redirect(next_page)
         return render_template('login.html', form=form, message='Неверная почта или пароль')
     return render_template('login.html', form=form)
 
@@ -71,18 +86,19 @@ def regist():
     return render_template('register.html', form=form)
 
 
-
-
 @app.route('/recipes')
 def all_recipes():
     db_sess = db_session.create_session()
-    recipes = db_sess.query(Recipes).filter(Recipes.is_private != True)
+    recipes = db_sess.query(Recipes).filter(Recipes.is_private != True).order_by(Recipes.modified_date.desc()).all()
     return render_template('recipes.html', recipes=recipes)
 
 
 @app.route('/my_recipes')
+@login_required
 def my_recipes():
-    return render_template('recipes.html', recipes=current_user.recipes, add_recipes=True)
+    db_sess = db_session.create_session()
+    recipes = db_sess.query(Recipes).filter(Recipes.user_id == current_user.id).order_by(Recipes.modified_date.desc()).all()
+    return render_template('recipes.html', recipes=recipes, add_recipes=True)
 
 
 @app.route('/read_recipe', methods=['POST'])
@@ -93,35 +109,58 @@ def read_recipe():
     return render_template('read_recipe.html', recipe=recipe)
 
 
+@app.route('/uploads/<filename>')
+def get_file(filename):
+    return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'], filename)
+
+
 @app.route('/create_recipes', methods=['GET', 'POST'])
 @login_required
 def create_recipes():
     form = RecipeForm()
+    print(33)
 
     if form.validate_on_submit():
+        print(11)
         db_sess = db_session.create_session()
         recipe = Recipes()
+        print(333)
         recipe.name = form.name.data
         recipe.text = form.text.data
         recipe.time = form.time.data
-        recipe.photo = form.photo.data
+        recipe.is_private = form.is_private.data
 
         if recipe.name == '':
-            message = 'Укажите название рецепта'
+            msg = 'Укажите название рецепта'
         elif recipe.time == '':
-            message = 'Укажите время приготовления'
+            msg = 'Укажите время приготовления'
         elif recipe.text == '':
-            message = 'Укажите рецепт'
+            msg = 'Укажите рецепт'
 
         if recipe.name == '' or recipe.text == '' or recipe.time == '':
-            return render_template('create_recipes.html', form=form, message=message)
+            return render_template('create_recipes.html', form=form, msg=msg)
 
-        recipe.is_private = form.is_private.data
+        file = form.photo.data
+        if file:
+            filename = photos.save(file)
+            recipe.photo = 'static/uploads/' + filename
+
         current_user.recipes.append(recipe)
         db_sess.merge(current_user)
         db_sess.commit()
-        return redirect('recipes')
+        return redirect(url_for('my_recipes'))
+
     return render_template('create_recipes.html', form=form)
+
+
+@app.route('/restaurants', methods=['GET', 'POST'])
+def restaurant():
+    # text_search = flask.request.args.get('search_req')
+    # data = request.json['data']
+
+    # Здесь можно обработать полученные данные из JavaScript
+    # print("Received data from JavaScript:", data)
+    return render_template('restaurants.html')
 
 
 
@@ -138,9 +177,6 @@ def page_not_fount(error):
 
 def main():
     db_session.global_init("db/blogs.db")
-    # db_sess = db_session.create_session()
-
-
     app.run(port=8080, host='127.0.0.1', debug=True)
 
 

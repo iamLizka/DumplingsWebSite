@@ -1,0 +1,41 @@
+form {
+    position: relative;
+    width: 40%;
+    margin-top: 80px;
+    left: 50%;
+    transform: translate(-50%, -10%);
+}
+
+input {
+    width: 100%;
+    height: 42px;
+    padding-left: 15px;
+    border: 2px solid #b58c7d;
+    border-radius: 7px;
+    outline: none;
+    background: #ffffff;
+    color: #b58c7d;
+}
+
+.btn-search {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  cursor: pointer;
+  background:transparent;
+
+}
+
+.img-search {
+    width: 38px;
+    height: 38px;
+    margin-left: -7px;
+    background: #ffffff;
+}
+
+.btn-search:hover {
+   outline: none;
+}

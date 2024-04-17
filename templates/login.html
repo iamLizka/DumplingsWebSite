@@ -32,11 +32,16 @@
                 <label class="form-label">Пароль</label>
             </div>
 
+            <div class="btns">
+                <button class="form-button come">Войти</button>
+                <button class="form-button regist" onclick="location.href='regist'">Регистрация</button>
+            </div>
             <div class="msg">
-                <button class="form-button">Войти</button>
                 {% if message %}
-                    <div>{{ message }}</div>
+                    <div class="text-msg">{{ message }}</div>
                 {% endif %}
+            </div>
+
             </div>
         </form>
     </div>

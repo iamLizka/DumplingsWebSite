@@ -1,5 +1,3 @@
-
-
 .btn {
    background-color: #f0f0f0;
    padding: 10px 20px;
@@ -29,6 +27,7 @@
 }
 
 .title {
+   color: #666666;
     background-color: #ffffff;
     position: absolute;
     text-align: center;
@@ -37,7 +36,7 @@
     margin-bottom: 15px;
     transform: translate(-50%, -5%);
     font-weight: 500;
-    font-size: 0.7cm;
+    font-size: 0.85cm;
 }
 
 .title-button {
@@ -61,6 +60,10 @@
    font-weight: 400;
    font-size: 0.6cm;
    top: 70px;
+}
+
+.btn-add-rec:hover {
+   outline: none;
 }
 
 .title-my-recipes {
@@ -173,36 +176,42 @@ label {
     background-color: #ffffff;
 }
 
-.file-input-container {
+.form-file {
     background-color: #ffffff;
 }
 
-.label {
-    background-color: #ffffff;
-}
-
-.file-input-container {
-    overflow: hidden;
+.error {
     position: relative;
+    color: #f80000;
+    background-color: #ffffff;
+    margin-top: 10px;
+    bottom: 5px;
 }
 
-.label {
-    background: #f0f0f0;
-    padding: 8px 13px;
-    color: #948f8f;
-    cursor: pointer;
-    border-radius: 10px;
-    margin-bottom: 10px;
+.btn-msg {
+    background-color: #ffffff;
 }
 
-.form-control-file {
-    display: none;
-}
-.form-control-file {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
+.msg {
     position: absolute;
-    z-index: -1;
+    background-color: #ffffff;
+    color: #f80000;
+    font-size: 0.45cm;
+    right: 200px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

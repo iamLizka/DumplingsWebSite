@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField
-from wtforms import BooleanField, SubmitField, FileField
-from wtforms.validators import DataRequired
+from flask_wtf.file import FileRequired, FileAllowed
+from wtforms import StringField, TextAreaField, BooleanField, SubmitField, FileField
+from main import photos
 
 
 class RecipeForm(FlaskForm):
@@ -9,5 +9,5 @@ class RecipeForm(FlaskForm):
     text = TextAreaField("Рецепт")
     time = StringField("Время приготовления")
     is_private = BooleanField("Личное")
-    photo = FileField("")
+    photo = FileField(validators=[FileAllowed(photos, "Допустимый формат: 'PNG', 'JPG', 'JPEG', 'GIF'")])
     submit = SubmitField('Добавить')

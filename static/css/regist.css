@@ -67,7 +67,9 @@
 
 .form-button:focus,
 .form-button:hover {
-   background-color: rgba(212, 126, 95, 0.7);
+    background-color: rgba(212, 126, 95, 0.7);
+    outline: none;
+
 }
 
 .form-input:focus ~ .form-label,
