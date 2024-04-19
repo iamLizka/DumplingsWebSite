@@ -26,10 +26,10 @@
 
     {% if current_user.is_authenticated %}
      <div class="avatar">
-      <li><img class="img-avatar" src="https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png">
+      <li><img class="img-avatar" src="{{ current_user.avatar }}">
          <ul>
             <li><a href="my_recipes">Мои рецепты</a></li>
-            <li><a href="#">Сменить аватарку</a></li>
+            <li><a id="modal-user-profile" href="#">Профиль</a></li>
             <li><a href="/logout">Выйти</a></li>
          </ul>
       </li>
@@ -44,10 +44,45 @@
 
    </header>
 
-   <div class="fon"></div>
+
 <main>
     {% block content %}{% endblock %}
 </main>
+
+   <div class="modal" id="modal-box">
+       <div class="user-profile">
+           <h5 class="title"> Профиль </h5>
+           <button id="user-profile-close" class="modal-close-btn">
+               <img src="static/images/btn_back.png">
+           </button>
+
+           <div class="btns-fields">
+               <div class="btns-avatar">
+                   <div class="avatarka">
+                       <img class="img-avatar" src="{{ current_user.avatar }}">
+                   </div>
+                   <button class="profile-btn edit-btn"> Редактировать</button>
+                   <button class="profile-btn"> Удалить аккаунт</button>
+               </div>
+
+               <div class="inform">
+                   <div class="inform-name">
+                       <h4 class="text"> имя: </h4>
+                       <h4 class="text"> фамилия: </h4>
+                       <h4 class="text"> почта: </h4>
+                   </div>
+                   <div class="inform-user">
+                       <h4 class="text"> {{ current_user.name }} </h4>
+                       <h4 class="text"> {{ current_user.surname }} </h4>
+                       <h4 class="text"> {{ current_user.email }} </h4>
+                   </div>
+
+               </div>
+           </div>
+       </div>
+
+   </div>
+    <script src="static/js/file.js"></script>
 
 </body>
 </html>

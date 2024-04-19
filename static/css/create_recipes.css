@@ -1,0 +1,95 @@
+.fon-form {
+    background-color: #ffffff;
+    position: absolute;
+    top: 33%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    width: 700px;
+    height: 100%;
+}
+
+.title {
+   color: #666666;
+    background-color: #ffffff;
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    top: 30px;
+    margin-bottom: 15px;
+    transform: translate(-50%, -5%);
+    font-weight: 500;
+    font-size: 0.85cm;
+}
+
+form.recipes {
+    background-color: #ffffff;
+    position: relative;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    width: 700px;
+    padding-top: 20px;
+    padding-left: 25px;
+    padding-bottom: 20px;
+    padding-right: 25px;
+}
+
+.form-recipes {
+    background-color: #ffffff;
+}
+
+.agree {
+    margin-top: -20px;
+    margin-bottom: 5px;
+    background-color: #ffffff;
+}
+
+.error {
+    position: relative;
+    color: #f80000;
+    background-color: #ffffff;
+    margin-top: 10px;
+    bottom: 5px;
+}
+
+.btn-msg {
+    background-color: #ffffff;
+}
+
+.form-file {
+    background-color: #ffffff;
+}
+
+.entrance {
+    background-color: #ffffff;
+}
+
+.msg {
+    position: absolute;
+    background-color: #ffffff;
+    color: #f80000;
+    font-size: 0.45cm;
+    right: 200px;
+}
+
+.btn {
+   background-color: #f0f0f0;
+   padding: 10px 20px;
+   outline: none;
+   border: none;
+   border-radius: 15px;
+   cursor: pointer;
+   color: #948f8f;
+   font-weight: 400;
+   font-size: 0.5cm;
+   position: relative;
+}
+
+.btn:hover {
+   background-color: #c8a99e;
+   color: #666666;
+}
+
+label {
+    background-color: #ffffff;
+}

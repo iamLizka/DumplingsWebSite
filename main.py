@@ -77,7 +77,8 @@ def regist():
             return render_template('register.html', form=form, message='Пароли не совпадают')
 
         else:
-            user = User(name=form.name.data, surname=form.surname.data, email=form.email.data)
+            user = User(name=form.name.data, surname=form.surname.data, email=form.email.data,
+                        liked_recipes='', avatar='static/images/avatar_none.png')
             db_sess.add(user)
             user.set_password(form.password.data)
             db_sess.commit()
@@ -90,7 +91,10 @@ def regist():
 def all_recipes():
     db_sess = db_session.create_session()
     recipes = db_sess.query(Recipes).filter(Recipes.is_private != True).order_by(Recipes.modified_date.desc()).all()
-    return render_template('recipes.html', recipes=recipes)
+    list_liked_recipes = []
+    if current_user.is_authenticated:
+        list_liked_recipes = [int(i) for i in current_user.liked_recipes.split(',') if i != '']
+    return render_template('recipes.html', recipes=recipes, list_recipes=list_liked_recipes)
 
 
 @app.route('/my_recipes')
@@ -98,7 +102,10 @@ def all_recipes():
 def my_recipes():
     db_sess = db_session.create_session()
     recipes = db_sess.query(Recipes).filter(Recipes.user_id == current_user.id).order_by(Recipes.modified_date.desc()).all()
-    return render_template('recipes.html', recipes=recipes, add_recipes=True)
+    list_liked_recipes = []
+    if current_user.is_authenticated:
+        list_liked_recipes = [int(i) for i in current_user.liked_recipes.split(',') if i != '']
+    return render_template('recipes.html', recipes=recipes, add_recipes=True, list_recipes=list_liked_recipes)
 
 
 @app.route('/read_recipe', methods=['POST'])
@@ -109,25 +116,41 @@ def read_recipe():
     return render_template('read_recipe.html', recipe=recipe)
 
 
-@app.route('/uploads/<filename>')
-def get_file(filename):
-    return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'], filename)
+@app.route('/change_likes', methods=['POST'])
+# @login_required
+def change_likes():
+    if current_user.is_authenticated:
+        db_sess = db_session.create_session()
+        recipe_id = request.form['recipe_for_likes']
+        recipe = db_sess.query(Recipes).filter(Recipes.id == recipe_id).first()
+
+        if recipe_id not in current_user.liked_recipes.split(','):
+            recipe.count_likes = int(recipe.count_likes) + 1
+            recipe.users_likes = recipe.users_likes + str(current_user.id) + ','
+            current_user.liked_recipes = current_user.liked_recipes + recipe_id + ','
+        else:
+            recipe.count_likes = int(recipe.count_likes) - 1
+            recipe.users_likes = ','.join(recipe.users_likes.split(',')[0:-2]) + ','
+            current_user.liked_recipes = ','.join(current_user.liked_recipes.split(',')[0:-2]) + ','
+
+        db_sess.merge(current_user)
+        db_sess.commit()
+    return redirect(request.referrer)
 
 
 @app.route('/create_recipes', methods=['GET', 'POST'])
 @login_required
 def create_recipes():
     form = RecipeForm()
-    print(33)
 
     if form.validate_on_submit():
-        print(11)
         db_sess = db_session.create_session()
         recipe = Recipes()
-        print(333)
         recipe.name = form.name.data
         recipe.text = form.text.data
         recipe.time = form.time.data
+        recipe.count_likes = 0
+        recipe.users_likes = ''
         recipe.is_private = form.is_private.data
 
         if recipe.name == '':
@@ -155,11 +178,8 @@ def create_recipes():
 
 @app.route('/restaurants', methods=['GET', 'POST'])
 def restaurant():
-    # text_search = flask.request.args.get('search_req')
-    # data = request.json['data']
-
-    # Здесь можно обработать полученные данные из JavaScript
-    # print("Received data from JavaScript:", data)
+    if request.method == 'POST':
+        text = request.form['search_req']
     return render_template('restaurants.html')
 
 

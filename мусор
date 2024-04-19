@@ -1,0 +1,187 @@
+
+
+.title-button {
+    display: flex;
+    font-weight: 200;
+    font-size: 0.4cm;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+
+.btn-add-rec:hover {
+   outline: none;
+}
+
+
+
+
+
+.msg {
+    width: 280px;
+    height: 40px;
+    right: 120px;
+    bottom: 25px;
+    position: absolute;
+    font-size: 0.4cm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.cols {
+    width: 65%;
+    margin: 0 auto;
+}
+
+.empty {
+    height: 70px;
+}
+
+
+
+.col {
+    padding: 10px 20px;
+    background-color: #ffffff;
+    top: 20px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+.col:focus {
+    outline: none;
+}
+
+.col:hover {
+    outline: none;
+}
+
+.fields {
+    background-color: #ffffff;
+    text-align: left;
+    width: 100%;
+
+}
+
+.name {
+    margin-left: 20px;
+   font-weight: 500;
+   font-size: 1cm;
+   background-color: #ffffff;
+}
+
+.time {
+    width: 100%;
+   font-weight: 400;
+   font-size: 0.43cm;
+   background-color: #ffffff;
+}
+
+.recipe {
+    left: 10px;
+   width: 100%;
+   font-weight: 400;
+   font-size: 0.48cm;
+   background-color: #ffffff;
+   top: 10px;
+}
+
+.author-date {
+    width: 100%;
+    display: flex;
+    font-weight: 200;
+    font-size: 0.4cm;
+    justify-content: space-between;
+    background-color: #ffffff;
+}
+
+.author,
+.date,
+.entrance {
+    background-color: #ffffff;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+.in-line {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.likes-inline {
+    margin-top: 10px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.likes {
+    position: relative;
+    background-color: #ffffff;
+    font-size: 0.65cm;
+     left: -10px;
+}
+
+.photo-btn-like {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    background-color: #ffffff;
+    left: -15px;
+    border: none;
+}
+
+.photo-btn-like:focus,
+.photo-btn-like:hover {
+   outline: none;
+}
+
+.photo-btn-like img {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.form-btn {
+    background-color: #ffffff;
+    width: 100%;
+    left: 10px;
+
+}
+
+.btn-read {
+    background-color: #ffffff;
+
+    right: 10px;
+    width: 100%;
+    border: none;
+}
+
+.btn-read:focus,
+.btn-read:hover {
+   outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -27,12 +27,13 @@
 
 .text {
     background-color: #ffffff;
+    position: relative;
     color: #4d4d4d;
     margin-left: 5%;
     margin-right: 5%;
     font-weight: 200;
     font-size: 0.5cm;
-    margin-bottom: 20px;
+    bottom: 20px;
     line-height: 150%;
 }
 
@@ -41,6 +42,8 @@
     color: #4d4d4d;
     margin-left: 5%;
     margin-right: 5%;
+    position: relative;
+    bottom: 15px;
     font-weight: 200;
     font-size: 0.45cm;
     font-style: italic;
@@ -75,3 +78,5 @@
     object-fit: contain;
     background: white;
 }
+
+

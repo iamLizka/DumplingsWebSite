@@ -15,28 +15,47 @@
         {% else %}
             <div class="empty"></div>
         {% endif %}
-
         {% for item in recipes %}
-        <form action="/read_recipe" method="post">
-            <input type="hidden" name="recipe" value="{{item.id}}">
-            <button type="submit" name="submit" class="col col-md6 border rounded">
-                <div class="fields">
-                    <h1 class="name">{{ item.name }}</h1>
-                    <h6 class="time">Время приготовления: {{ item.time }}</h6>
-                    <h6 class="recipe">Рецепт: {{ item.text[:70] }}</h6>
-                </div>
-                <div class="author-date">
 
-                    <div class="author">Автор - {{ item.user.name }}</div>
-                    <div class="date">
-                        Опубликовано - {{ item.modified_date.date() }} в {{ item.modified_date.hour }}:{{ item.modified_date.minute }}
+        <div class="one-recipe">
+            <form class="form-btn" id="likes" action="/change_likes" method="post">
+                <input type="hidden" name="recipe_for_likes" value="{{item.id}}">
+                <div class="in-line">
+                    <h1 class="name">~{{ item.name }}~</h1>
+                    <div class="likes-inline">
+                        {% if item.id in list_recipes %}
+                        <button class="photo-btn-like"><img src="static/images/red_heart.png"></button>
+                        {% else %}
+                        <button class="photo-btn-like"><img src="static/images/grey_heart.png"></button>
+                        {% endif %}
+                        <div class="likes">{{ item.count_likes }}</div>
+                            <div id="result"></div>
+
                     </div>
                 </div>
-            </button>
-        </form>
+            </form>
+
+            <form class="form-btn" id="reading" action="/read_recipe" method="post">
+                <input type="hidden" name="recipe" value="{{item.id}}">
+                <button class="btn-read" type="submit" name="submit" class="col">
+                    <div class="fields">
+                        <h6 class="time">Время приготовления: {{ item.time }}</h6>
+                        <h6 class="recipe">Рецепт: {{ item.text[:70] }}</h6>
+                    </div>
+                    <div class="author-date">
+                        <div class="author">Автор - <a class="link" href="#">{{ item.user.name }}</a></div>
+                        <div class="date">
+                            Опубликовано - {{ item.modified_date.date() }} в {{ item.modified_date.hour }}:{{ item.modified_date.minute }}
+                        </div>
+                    </div>
+                </button>
+            </form>
+        </div>
 
         {% endfor %}
 
     </div>
+
+
 
 {% endblock %}
