@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="static/css/profile_user.css">
+<div class="screen">
+    <div class="content-user">
+        <div class="profile">
+            <div class="avatar-btn">
+                <div class="avatarka">
+                    <img class="img-avatar-profile" src="{{ current_user.avatar }}">
+                </div>
+                <div class="btns">
+                    <button class="btn-profile btn-edit" type="button" onclick="location.href='edit_profile'"> Редактировать</button><br>
+                    <button class="btn-profile" type="button"> Удалить аккаунт</button><br>
+                </div>
+            </div>
+
+
+            <div class="inform">
+                <div class="inform-name">
+                    <h4 class="text"> имя: </h4>
+                    <input class="text-inform" readonly placeholder="{{ current_user.name }}"></input>
+                </div>
+                <div class="inform-name">
+                    <h4 class="text"> фамилия: </h4>
+                    <input class="text-inform" readonly placeholder="{{ current_user.surname }}"></input>
+                </div>
+                <div class="inform-name">
+                    <h4 class="text"> уровень: </h4>
+                    <input class="text-inform" readonly placeholder="{{ current_user.level }}"></input>
+                </div>
+                <div class="inform-name">
+                    <h4 class="text"> почта: </h4>
+                    <input class="text-inform" readonly placeholder="{{ current_user.email }}"></input>
+                </div>
+                <div class="inform-name">
+                    <h4 class="text"> дата регистрации: </h4>
+                    <input class="text-inform" placeholder="{{ current_user.modified_date.date() }}"></input>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

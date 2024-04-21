@@ -14,6 +14,7 @@ class User(SqlAlchemyBase, UserMixin):
     surname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     avatar = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String, unique=True, nullable=True)
+    level = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     liked_recipes = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     modified_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
@@ -24,20 +25,5 @@ class User(SqlAlchemyBase, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.hashed_password, password)
-
-    def check_liked_recipes(self, id_recipe):
-        if id_recipe in self.user_liked_recipes:
-            return True
-        return False
-
-    def add_liked_recipes(self, id_recipe):
-        self.user_liked_recipes += id_recipe
-
-    def delete_liked_recipes(self, id_recipe):
-        self.user_liked_recipes.remove(id_recipe)
-
-    def return_list_liked_recipes(self):
-        print(self.user_liked_recipes)
-        return self.user_liked_recipes
 
 

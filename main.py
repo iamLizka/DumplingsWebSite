@@ -68,6 +68,7 @@ def regist():
     form = RegisterForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
+        level = request.form["level"]
 
         if form.email.data in [user.email for user in db_sess.query(User)]:
             form.email.data = ""
@@ -78,7 +79,7 @@ def regist():
 
         else:
             user = User(name=form.name.data, surname=form.surname.data, email=form.email.data,
-                        liked_recipes='', avatar='static/images/avatar_none.png')
+                        liked_recipes='', avatar='static/images/avatar_none.png', level=level)
             db_sess.add(user)
             user.set_password(form.password.data)
             db_sess.commit()
@@ -182,6 +183,40 @@ def restaurant():
         text = request.form['search_req']
     return render_template('restaurants.html')
 
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile_user():
+    form = RegisterForm()
+    if request.method == 'POST':
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.id == current_user.id).first()
+
+        if form.email_edit.data in [user.email for user in db_sess.query(User)]:
+            form.email_edit.data = ""
+            return render_template('edit_profile.html', form=form, message='Такой пользователь уже существует')
+
+        elif form.password_new.data and form.password_old.data:
+            if not user.check_password(form.password_old.data):
+                return render_template('edit_profile.html', form=form, message='Неверный старый пароль')
+            else:
+                user.set_password(form.password_new.data)
+
+        user.name = form.name_edit.data if form.name_edit.data else current_user.name
+        user.surname = form.surname_edit.data if form.surname_edit.data else current_user.surname
+        user.email = form.email_edit.data if form.email_edit.data else current_user.email
+        user.avatar = request.form['img-avatar']
+        user.level = request.form['level']
+        db_sess.commit()
+        return redirect(url_for('profile_user'))
+
+    return render_template('edit_profile.html', form=form)
+
+
+@app.route('/profile_user')
+@login_required
+def profile_user():
+    return render_template('profile_user.html')
 
 
 @app.route('/home')

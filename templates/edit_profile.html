@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="static/css/profile_user.css">
+
+<link rel="stylesheet" href="static/css/profile_user.css">
+<div class="screen">
+    <div class="content-user">
+        <form class="form" method="post">
+            {{ form.hidden_tag() }}
+            <div class="profile">
+                <div class="avatar-btn">
+                    <div class="avatarka-in-edit">
+                        <input type="hidden" id="avatar-user" name="img-avatar" value="{{ current_user.avatar }}">
+
+                        <img id="avatarka" class="img-avatar-profile-in-edit" src="{{ current_user.avatar }}">
+                    </div>
+                    <h4 class="text-avatar">аватарка</h4>
+                    <div class="avatars avatars1">
+
+                        <button id="btn-1" type="button" class="avatars-var">
+                            <img class="img-avatars" src="static/images/avatar_none.png"></button>
+
+                        <button id="btn-2" type="button" class="avatars-var">
+                            <img class="img-avatars" src="static/images/avatar2.png"></button>
+
+                        <button id="btn-3" type="button" class="avatars-var">
+                            <img class="img-avatars" src="static/images/avatar1.png"></button>
+                    </div><br>
+                    <div class="avatars">
+                        <button  id="btn-4" type="button" class="avatars-var">
+                            <img class="img-avatars" src="static/images/cabbage_avatar.png"></button>
+
+                        <button  id="btn-5" type="button" class="avatars-var" value="static/images/tomato_avatar1.png">
+                            <img class="img-avatars" src="static/images/tomato_avatar1.png"></button>
+
+                        <button  id="btn-6" type="button" class="avatars-var">
+                            <img class="img-avatars" src="static/images/ребенок.png"></button>
+                    </div>
+                    <div class="btns">
+                        <button class="btn-profile btn-edit">Сохранить</button><br>
+                        <button class="btn-profile" type="button" onclick="location.href='profile_user'">Отмена</button><br>
+                    </div>
+                </div>
+
+                <div class="inform">
+                    <div class="inform-name">
+                        <h4 class="text"> имя: </h4>
+                        {{ form.name_edit(class="form-input", type="name") }}<br>
+                    </div>
+
+                    <div class="inform-name">
+                        <h4 class="text"> фамилия: </h4>
+                        {{ form.surname_edit(class="form-input", type="surname") }}<br>
+                    </div>
+
+                    <div class="inform-name">
+                        <h4 class="text"> уровень: </h4>
+                        <select class="form-input" id="classSelect" name="level">
+                            <option class="levels">Любитель</option>
+                            <option class="levels">Умелый</option>
+                            <option class="levels">Супер-повар</option>
+                            <option class="levels">Шеф-повар</option>
+                            <option class="levels">Гурман</option>
+                        </select>
+                    </div>
+
+                    <div class="inform-name">
+                        <h4 class="text"> почта: </h4>
+                        {{ form.email_edit(class="form-input", type="email") }}<br>
+                    </div>
+
+                    <div class="inform-name">
+                        <h4 class="text"> старый пароль: </h4>
+                        {{ form.password_old(class="form-input", type="password") }}<br>
+                    </div>
+
+                    <div class="inform-name">
+                        <h4 class="text"> новый пароль: </h4>
+                        {{ form.password_new(class="form-input", type="password") }}<br>
+                    </div>
+                    <div class="msg">
+                        {% if message %}
+                        <div class="text-msg">{{ message }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script src="static/js/edit_avatars.js"></script>
+
+{% endblock %}

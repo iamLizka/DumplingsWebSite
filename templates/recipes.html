@@ -43,7 +43,7 @@
                         <h6 class="recipe">Рецепт: {{ item.text[:70] }}</h6>
                     </div>
                     <div class="author-date">
-                        <div class="author">Автор - <a class="link" href="#">{{ item.user.name }}</a></div>
+                        <div class="author">Автор - <a class="link" id="modal-user-profile" href="#">{{ item.user.name }}</a></div>
                         <div class="date">
                             Опубликовано - {{ item.modified_date.date() }} в {{ item.modified_date.hour }}:{{ item.modified_date.minute }}
                         </div>
@@ -53,9 +53,39 @@
         </div>
 
         {% endfor %}
-
     </div>
 
+    <div class="modal" id="modal-box">
+        <div class="user-profile">
+            <h5 class="title"> Профиль </h5>
+            <button id="user-profile-close" class="modal-close-btn">
+                <img src="static/images/btn_back.png">
+            </button>
 
+            <div class="profile">
+                <div class="avatarka">
+                    <img class="img-avatar-profile" src="{{ current_user.avatar }}">
+                </div>
+
+                <div class="inform">
+                    <div class="inform-name">
+                        <h4 class="text"> имя: </h4>
+                        <h4 class="text"> фамилия: </h4>
+                        <h4 class="text"> почта: </h4>
+                        <h4 class="text"> дата регистрации: </h4>
+                    </div>
+                    <div class="inform-user">
+                        <h4 class="text"> {{ current_user.name }} </h4>
+                        <h4 class="text"> {{ current_user.surname }} </h4>
+                        <h4 class="text"> {{ current_user.email }} </h4>
+                        <h4 class="text"> {{ current_user.modified_date.date() }} </h4>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="static/js/file.js"></script>
 
 {% endblock %}

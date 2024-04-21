@@ -18,28 +18,34 @@
     <div class="login-fon">
         <img class="fon" src="static/images/fon_login.png" alt="здесь должна быть фотография, но ее нет почему-то">
 
-        <form class="form"action="" method="post">
+        <form class="form" action="" method="post">
             <h1 class="form-title">Вход</h1>
+            {{ form.hidden_tag() }}
 
             <div class="form-group">
-                {{ form.hidden_tag() }}
-
                 {{ form.name(class="form-input", type="name") }}<br>
                 <label class="form-label">Имя</label>
             </div>
 
             <div class="form-group">
-                {{ form.hidden_tag() }}
-
                 {{ form.surname(class="form-input", type="surname") }}<br>
                 <label class="form-label">Фамилия</label>
             </div>
 
             <div class="form-group">
-                {{ form.hidden_tag() }}
-
                 {{ form.email(class="form-input", type="email") }}<br>
                 <label class="form-label">Email</label>
+            </div>
+
+            <div class="form-group">
+                <select class="form-input" id="classSelect" name="level">
+                    <option>Любитель</option>
+                    <option>Умелый</option>
+                    <option>Супер-повар</option>
+                    <option>Шеф-повар</option>
+                    <option>Гурман</option>
+                </select>
+                <label class="form-label" for="classSelect">Ваш уровень</label>
             </div>
 
             <div class="form-group">
