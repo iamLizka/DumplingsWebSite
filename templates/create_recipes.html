@@ -2,10 +2,12 @@
 
 {% block content %}
 
-<link rel="stylesheet" href="static/css/create_recipes.css">
+<link rel="stylesheet" href="/static/css/create_recipes.css">
+
+<title>{{ title }}</title>
 
 <div class="fon-form">
-    <div class="title">Добавление рецепта</div>
+    <div class="title">{{ title }}</div><br>
 
     <form class="recipes" enctype="multipart/form-data" method="post">
             {{ form.hidden_tag() }}
@@ -23,14 +25,15 @@
             {{ form.text(class="form-control", type="text") }}<br>
         </p>
 
-        <p class="agree">{{ form.is_private() }} {{ form.is_private.label }}</p>
+        <p class="agree">{{ form.is_private(class="agree-box") }} {{ form.is_private.label }}</p>
 
         {% for error in form.photo.errors %}
             <span class="error">{{ error }}</span>
         {% endfor %}
 
         <p class="form-recipes">
-            {{ form.photo(class="form-file") }}<br>
+            {{ form.photo(class="form-file") }}
+            <div class="btn-file"><img class="btn-img" src="/static/images/btn-photo.png"></div>
         </p>
 
         <div class="btn-msg">
@@ -43,11 +46,5 @@
         </form>
     </div>
 </div>
-
-    {% if file_url %}
-        <div class="mt-5">
-            <img src="{{ file_url }}" style="width: 400px;">
-        </div>
-    {% endif %}
 
 {% endblock %}

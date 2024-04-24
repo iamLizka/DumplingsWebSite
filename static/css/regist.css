@@ -79,3 +79,9 @@
    color: #e0e0e0;
 }
 
+.msg {
+    display: inline;
+    margin-left: 10px;
+    color: #f80000;
+   }
+

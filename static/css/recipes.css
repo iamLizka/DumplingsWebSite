@@ -17,9 +17,14 @@
 
 .name {
     background-color: #ffffff;
-    margin-left: 40px;
+    color: #4f4f4f;
+    margin-left: 25px;
     margin-top: 10px;
-
+    font-weight: 550;
+    font-size: 1cm;
+    font-style: italic;
+    max-width: 85%;
+    word-break: break-all;
 }
 
 .form-btn {
@@ -112,10 +117,16 @@ position: relative;
 }
 
 .link {
+    background-color: #ffffff;
+    outline: 0;
+    border: 0;
     color: #a67b6a;
 }
 
 .link:hover {
+    text-decoration: underline;
+    outline: 0;
+    border: 0;
     color: #8a6153;
 }
 
@@ -141,18 +152,30 @@ position: relative;
    height: 60px;
    outline: none;
    border: none;
-   border-radius: 15px;
+   border-radius: 25px;
    cursor: pointer;
    position: relative;
    color: #666666;
    font-weight: 400;
    font-size: 0.6cm;
+   margin-bottom: 90px;
    top: 70px;
 }
 
 .btn-add-rec:focus,
 .btn-add-rec:hover {
+    color: #4d4d4d;
+    background-color: #d6d6d6;
     outline: none;
+}
+
+.not-recipes {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 500;
+    font-size: 1.5cm;
 }
 
 
@@ -241,6 +264,8 @@ position: relative;
 }
 
 .img-avatar-profile {
+    width: 140px;
+    height: 140px;
     background-color: #ffffff;
     border-radius: 70px;
     border:3px solid #a67b6a;

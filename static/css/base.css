@@ -55,6 +55,11 @@ header nav ul li a:hover {
    text-decoration: none;
 }
 
+
+.avat-name {
+    display: inline;
+}
+
 .avatar {
     background-color: #ffffff;
     width: 50px;
@@ -66,6 +71,7 @@ header nav ul li a:hover {
     width: 100%;
     height: 100%;
     border-radius: 70px;
+    border: 1.5px solid #a67b6a;
 }
 
 nav {
@@ -101,7 +107,9 @@ div li ul li a {
 }
 
 div li ul li a:hover {
-   color: #472e25;
+   color: #9e6550;
+
+    background-color: #f0f0f0;
    text-decoration: none;
 }
 

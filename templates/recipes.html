@@ -4,6 +4,7 @@
 
 <link rel="stylesheet" href="static/css/recipes.css">
 
+<title>{{ title }}</title>
 
     <div class="cols">
         {% if current_user.is_authenticated and add_recipes %}
@@ -13,79 +14,55 @@
                     рецепт</button>
             </div>
         {% else %}
+            <title>Рецепты</title>
             <div class="empty"></div>
         {% endif %}
-        {% for item in recipes %}
 
-        <div class="one-recipe">
-            <form class="form-btn" id="likes" action="/change_likes" method="post">
-                <input type="hidden" name="recipe_for_likes" value="{{item.id}}">
-                <div class="in-line">
-                    <h1 class="name">~{{ item.name }}~</h1>
-                    <div class="likes-inline">
-                        {% if item.id in list_recipes %}
-                        <button class="photo-btn-like"><img src="static/images/red_heart.png"></button>
-                        {% else %}
-                        <button class="photo-btn-like"><img src="static/images/grey_heart.png"></button>
-                        {% endif %}
-                        <div class="likes">{{ item.count_likes }}</div>
-                            <div id="result"></div>
+        {% if recipes %}
+            {% for item in recipes %}
 
-                    </div>
-                </div>
-            </form>
-
-            <form class="form-btn" id="reading" action="/read_recipe" method="post">
-                <input type="hidden" name="recipe" value="{{item.id}}">
-                <button class="btn-read" type="submit" name="submit" class="col">
-                    <div class="fields">
-                        <h6 class="time">Время приготовления: {{ item.time }}</h6>
-                        <h6 class="recipe">Рецепт: {{ item.text[:70] }}</h6>
-                    </div>
-                    <div class="author-date">
-                        <div class="author">Автор - <a class="link" id="modal-user-profile" href="#">{{ item.user.name }}</a></div>
-                        <div class="date">
-                            Опубликовано - {{ item.modified_date.date() }} в {{ item.modified_date.hour }}:{{ item.modified_date.minute }}
+                <div class="one-recipe">
+                    <form class="form-btn" id="likes" action="/change_likes" method="post">
+                        <input type="hidden" name="recipe_for_likes" value="{{item.id}}">
+                        <div class="in-line">
+                            <h1 class="name">~{{ item.name }}~</h1>
+                            <div class="likes-inline">
+                                {% if item.id in list_recipes %}
+                                <button class="photo-btn-like"><img src="/static/images/red_heart.png"></button>
+                                {% else %}
+                                <button class="photo-btn-like"><img src="/static/images/grey_heart.png"></button>
+                                {% endif %}
+                                <div class="likes">{{ item.count_likes }}</div>
+                                    <div id="result"></div>
+                            </div>
                         </div>
-                    </div>
-                </button>
-            </form>
-        </div>
+                    </form>
 
-        {% endfor %}
+                    <form class="form-btn" id="reading" action="read_recipe/{{ item.id }}" method="post">
+                        <input type="hidden" name="recipe" value="{{item.id}}">
+                        <button class="btn-read" type="submit"  name="submit" class="col">
+                            <div class="fields">
+                                <h6 class="time">Время приготовления: {{ item.time }}</h6>
+                                <h6 class="recipe">Рецепт: {{ item.text[:70] }}</h6>
+                            </div>
+                        </button>
+                    </form>
+                    <form class="form-author" id="show-profile" action="profile_user_recipe/{{ item.user_id }}" method="post">
+                        <input type="hidden" name="id-user" value="{{item.user_id}}">
+                        <div class="author-date">
+                            <div class="author">Автор - <button class="link" type="submit" >{{ item.user.name }}</button></div>
+                            <div class="date">
+                                Опубликовано - {{ item.modified_date.date() }} в {{ item.modified_date.hour }}:{{ item.modified_date.minute }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h5 class="not-recipes"> Пусто :( </h5>
+        {% endif %}
     </div>
 
-    <div class="modal" id="modal-box">
-        <div class="user-profile">
-            <h5 class="title"> Профиль </h5>
-            <button id="user-profile-close" class="modal-close-btn">
-                <img src="static/images/btn_back.png">
-            </button>
-
-            <div class="profile">
-                <div class="avatarka">
-                    <img class="img-avatar-profile" src="{{ current_user.avatar }}">
-                </div>
-
-                <div class="inform">
-                    <div class="inform-name">
-                        <h4 class="text"> имя: </h4>
-                        <h4 class="text"> фамилия: </h4>
-                        <h4 class="text"> почта: </h4>
-                        <h4 class="text"> дата регистрации: </h4>
-                    </div>
-                    <div class="inform-user">
-                        <h4 class="text"> {{ current_user.name }} </h4>
-                        <h4 class="text"> {{ current_user.surname }} </h4>
-                        <h4 class="text"> {{ current_user.email }} </h4>
-                        <h4 class="text"> {{ current_user.modified_date.date() }} </h4>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <script src="static/js/file.js"></script>
+<script src="static/js/profile_user.js"></script>
 
 {% endblock %}

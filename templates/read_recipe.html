@@ -2,15 +2,68 @@
 
 {% block content %}
 
-<link rel="stylesheet" href="static/css/read_recipe.css">
+<link rel="stylesheet" href="/static/css/read_recipe.css">
+
+<title> {{recipe.name}} </title>
 
 <div class="field">
-    <div class="name">~{{recipe.name}}~</div>
+<!--    <div class="name">~{{recipe.name}}~</div>-->
+    <form class="form-btn" id="likes" action="/change_likes" method="post">
+        <input type="hidden" name="recipe_for_likes" value="{{recipe.id}}">
+        <div class="in-line-name">
+            <h1 class="name">~{{ recipe.name }}~</h1>
+            <div class="likes-inline">
+                {% if recipe.id in list_recipes %}
+                <button class="photo-btn-like"><img src="/static/images/red_heart.png"></button>
+                {% else %}
+                <button class="photo-btn-like"><img src="/static/images/grey_heart.png"></button>
+                {% endif %}
+                <div class="likes">{{ recipe.count_likes }}</div>
+                    <div id="result"></div>
+            </div>
+        </div>
+    </form>
+    <div class="recipe-just">Рецепт:</div><br>
     <div class="recipe"><h1 class="text">{{recipe.text}}</h1></div>
     <div class="time">Время приготовления: {{recipe.time}}</div>
     {% if recipe.photo %}
         <div class="photo"><img src="{{recipe.photo}}"></div>
     {% endif %}
+    <div class="author-date">
+        <div class="author-recipe">Автор - {{ user_name }} </div>
+        <div class="date">Опубликовано - {{ recipe.modified_date.date() }} в {{ recipe.modified_date.hour }}:{{ recipe.modified_date.minute }}</div>
+    </div><br>
+    {% if current_user.id == recipe.user_id %}
+    <div class="btns">
+        <a href="/recipe_edit/{{ recipe.id }}" class="btn-edit-recipe">Изменить</a>
+        <a href="/recipe_delete/{{ recipe.id }}" class="btn-delete-recipe">Удалить</a>
+    </div>
+    {% endif %}
 </div>
+
+<form name="comment" class="comment-write" action="/write_comment/{{ recipe.id }}" method="POST">
+    <textarea type="text" autocomplete="off" id="comment" placeholder="Написать комментарий" name="comment"></textarea>
+    <button class="btn-send" onclick="ClearField" type="submit">Отправить</button>
+</form>
+
+<div class="comments">
+    {% for item in comments %}
+    <div class="comment">
+        <form class="form-comment" id="show-profile" action="/profile_user_recipe/{{ item.user_id }}" method="post">
+        <div class="in-line">
+            <div class="inform">
+                <input type="hidden" name="id-user" value="{{item.user_id}}">
+                <div class="author author-email"><button class="link" type="submit">{{ db_sess.query(user).filter(user.id == item.user_id).first().name }}</button></div>
+                <div class="email author-email">{{ db_sess.query(user).filter(user.id == item.user_id).first().email }}</div>
+            </div>
+            <div class="data author-email-data">Опубликовано - {{ item.modified_date.date() }} в {{ item.modified_date.hour }}:{{ item.modified_date.minute }}</div>
+        </div>
+
+        </form><br>
+        <div class="text-comment">{{ item.comment }}</div>
+    </div>
+    {% endfor %}
+</div>
+
 
 {% endblock %}

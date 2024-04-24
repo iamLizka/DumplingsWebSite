@@ -4,11 +4,68 @@
 
 <link rel="stylesheet" href="static/css/restaurants.css">
 
+<title>Рестораны</title>
+
 <form action="" method="POST">
   <input type="text" autocomplete="off" placeholder="Введите город..." name="search_req">
   <button class="btn-search" type="submit"><img class="img-search" src="./static/images/btn_search.png"></button>
 </form>
 
-<!--    <script src="static/js/file.js"></script>-->
+{%if msg %}
+  <div class="msg">{{ msg }}</div>
+{% endif %}
+
+{% for restaurant in data %}
+
+<div class="cols">
+  <div class="one-restaurant">
+    <div class="col photo">
+      <img class="img-photo" src="{{ restaurant['photo'] }}" alt="фото">
+    </div>
+    <div class="col inform">
+      <h1 class="name">~{{ restaurant['name'] }}~</h1>
+
+      <div class="group">
+        <h1 class="line text">Адрес:</h1>
+        {% if restaurant['address'] %}
+          <h1 class="line data">{{ restaurant['address'] }}</h1>
+        {% else %}
+          <h1 class="line data">--------</h1>
+        {% endif %}
+      </div>
+
+      <div class="group">
+        <h1 class="line text">Часы работы:</h1>
+        {% if restaurant['hours'] %}
+          {% for hour in restaurant['hours'] %}
+            <h1 class="line data">{{ restaurant['hours'][0] }}</h1><br>
+          {% endfor %}
+        {% else %}
+          <h1 class="line data">--------</h1>
+        {% endif %}
+      </div>
+
+      <div class="group">
+        <h1 class="line text">Телефон:</h1>
+        {% if restaurant['phone'] %}
+          <h1 class="line data">{{ restaurant['phone'] }}</h1>
+        {% else %}
+          <h1 class="line data">--------</h1>
+        {% endif %}
+
+              <div class="group">
+        <h1 class="line text">На сайт:</h1>
+        {% if restaurant['url'] %}
+          <a class="line data link" target="_blank" href="{{ restaurant['url'] }}">{{ restaurant['url'] }}</a>
+        {% else %}
+          <h1 class="line data">--------</h1>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
 
 {% endblock %}

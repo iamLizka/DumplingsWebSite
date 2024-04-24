@@ -1,7 +1,7 @@
 form {
     position: relative;
-    width: 40%;
-    margin-top: 80px;
+    max-width: 600px;
+    margin-top: 85px;
     left: 50%;
     transform: translate(-50%, -10%);
 }
@@ -11,31 +11,119 @@ input {
     height: 42px;
     padding-left: 15px;
     border: 2px solid #b58c7d;
-    border-radius: 7px;
+    border-radius: 25px;
     outline: none;
     background: #ffffff;
-    color: #b58c7d;
+    color: #000000;
+    margin-bottom: 20px;
 }
 
 .btn-search {
-  position: absolute;
-  top: 0;
-  right: 0px;
-  width: 42px;
-  height: 42px;
-  border: none;
-  cursor: pointer;
-  background:transparent;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    cursor: pointer;
+    background:transparent;
+    border-radius: 20px;
 
 }
 
 .img-search {
     width: 38px;
     height: 38px;
-    margin-left: -7px;
+    margin-left: 0px;
     background: #ffffff;
+    border-radius: 20px;
 }
 
 .btn-search:hover {
    outline: none;
 }
+
+
+
+
+.cols {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.one-restaurant {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inform {
+    flex-basis: auto;
+    background-color: #ffffff;
+    text-align: left;
+    margin-top: 15px;
+    max-width: 570px;
+    padding: 0px 10px 10px 0px;
+}
+
+.photo {
+    background-color: #ffffff;
+    width: 220px;
+}
+
+.img-photo {
+    top: 50%;
+    background-color: #ffffff;
+    width: 220px;
+    height: 170px;
+    padding: 10px 20px 10px 0px;
+}
+
+.name {
+    background-color: #ffffff;
+    font-weight: 600;
+    font-size: 0.7cm;
+    font-style: italic;
+}
+
+.data {
+    background-color: #ffffff;
+    font-weight: 400;
+    font-size: 0.45cm;
+}
+
+.text {
+    font-weight: 750;
+    font-size: 0.47cm;
+}
+
+.group {
+    background-color: #ffffff;
+}
+
+.line {
+    background-color: #ffffff;
+    display: inline;
+}
+
+.link {
+    color: #a67b6a;
+}
+
+.link:hover {
+    color: #8a6253;
+}
+
+.msg {
+    position: absolute;
+    top: 23%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    font-weight: 500;
+    font-size: 0.5cm;
+}
+
+
+
+

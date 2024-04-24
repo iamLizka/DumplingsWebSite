@@ -7,7 +7,7 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
-    <link rel="stylesheet" href="static/css/base.css">
+    <link rel="stylesheet" href="/static/css/base.css">
 
 </head>
 
@@ -18,18 +18,19 @@
 
      <nav>
          <ul>
-             <li><a href="recipes">Рецепты</a></li>
+             <li><a href="/recipes">Рецепты</a></li>
              <li><a href="/">Главная</a></li>
-             <li><a href="restaurants">Рестораны</a></li>
+             <li><a href="/restaurants">Рестораны</a></li>
          </ul>
      </nav>
 
     {% if current_user.is_authenticated %}
      <div class="avatar">
-      <li><img class="img-avatar" src="{{ current_user.avatar }}">
+      <li><img class="img-avatar" src="{{ '/' + current_user.avatar }}">
          <ul>
-            <li><a href="my_recipes">Мои рецепты</a></li>
-            <li><a href="profile_user">Профиль</a></li>
+            <li><a href="/my_recipes">Мои рецепты</a></li>
+            <li><a href="/like_recipes">Понравившиеся рецепты</a></li>
+            <li><a href="/profile_user">Профиль</a></li>
             <li><a href="/logout">Выйти</a></li>
          </ul>
       </li>
