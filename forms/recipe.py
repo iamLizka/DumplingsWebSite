@@ -7,6 +7,7 @@ from main import photos
 class RecipeForm(FlaskForm):
     name = StringField('Название')
     text = TextAreaField("Рецепт")
+    ingredients = TextAreaField("ингредиенты")
     time = StringField("Время приготовления")
     is_private = BooleanField("Личное")
     photo = FileField(validators=[FileAllowed(photos, "Допустимый формат: 'PNG', 'JPG', 'JPEG', 'GIF'")])

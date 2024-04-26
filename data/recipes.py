@@ -10,6 +10,7 @@ class Recipes(SqlAlchemyBase):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     text = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    ingredients = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     time = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     photo = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     count_likes = sqlalchemy.Column(sqlalchemy.String, nullable=True)

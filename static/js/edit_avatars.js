@@ -11,7 +11,7 @@ myInputElement.value = imageUrl;
 
 document.getElementById('btn-2').addEventListener('click', function() {
 var button = this;
-var imageUrl = 'static/images/avatar2.png'; // Укажите здесь ссылку на изображение кнопки
+var imageUrl = 'static/images/перец.png'; // Укажите здесь ссылку на изображение кнопки
 var imgElement = document.getElementById('avatarka');
 imgElement.src = imageUrl;
 // Получаем элемент input

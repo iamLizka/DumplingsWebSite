@@ -43,7 +43,7 @@ def logout():
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', home=True)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -141,7 +141,7 @@ def read_recipe(id):
     db_sess = db_session.create_session()
     recipe = db_sess.query(Recipes).filter(Recipes.id == id).first()
     comments = db_sess.query(Comments).filter(Comments.recipe_id == id).order_by(Comments.modified_date.desc()).all()
-    user_name = db_sess.query(User).filter(User.id == id).first().name
+    user_name = db_sess.query(User).filter(User.id == recipe.user_id).first().name
     list_liked_recipes = []
     if current_user.is_authenticated:
         list_liked_recipes = [int(i) for i in current_user.liked_recipes.split(',') if i != '']
@@ -149,29 +149,29 @@ def read_recipe(id):
 
 
 @app.route('/change_likes', methods=['POST'])
+@login_required
 def change_likes():
-    if current_user.is_authenticated:
-        db_sess = db_session.create_session()
-        recipe_id = request.form['recipe_for_likes']
-        recipe = db_sess.query(Recipes).filter(Recipes.id == recipe_id).first()
-        user = db_sess.query(User).filter(User.id == current_user.id).first()
+    db_sess = db_session.create_session()
+    recipe_id = request.form['recipe_for_likes']
+    recipe = db_sess.query(Recipes).filter(Recipes.id == recipe_id).first()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
 
-        if recipe_id not in user.liked_recipes.split(','):
-            recipe.count_likes = int(recipe.count_likes) + 1
-            recipe.users_likes = recipe.users_likes + str(user.id) + ','
-            user.liked_recipes = user.liked_recipes + recipe_id + ','
-        else:
-            recipe.count_likes = int(recipe.count_likes) - 1
-            users_likes = recipe.users_likes.split(',')
-            users_likes = [u for u in users_likes if u != '']
-            users_likes.remove(str(user.id))
-            recipe.users_likes = ','.join(users_likes) + ','
-            liked_recipes = current_user.liked_recipes.split(',')
-            liked_recipes.remove(recipe_id)
-            liked_recipes = [r for r in liked_recipes if r != '']
-            user.liked_recipes = ','.join(liked_recipes) + ','
+    if recipe_id not in user.liked_recipes.split(','):
+        recipe.count_likes = int(recipe.count_likes) + 1
+        recipe.users_likes = recipe.users_likes + str(user.id) + ','
+        user.liked_recipes = user.liked_recipes + recipe_id + ','
+    else:
+        recipe.count_likes = int(recipe.count_likes) - 1
+        users_likes = recipe.users_likes.split(',')
+        users_likes = [u for u in users_likes if u != '']
+        users_likes.remove(str(user.id))
+        recipe.users_likes = ','.join(users_likes) + ','
+        liked_recipes = current_user.liked_recipes.split(',')
+        liked_recipes.remove(recipe_id)
+        liked_recipes = [r for r in liked_recipes if r != '']
+        user.liked_recipes = ','.join(liked_recipes) + ','
 
-        db_sess.commit()
+    db_sess.commit()
     return redirect(request.referrer)
 
 
@@ -184,6 +184,7 @@ def create_recipes():
         recipe = Recipes()
         recipe.name = form.name.data
         recipe.text = form.text.data
+        recipe.ingredients = form.ingredients.data
         recipe.time = form.time.data
         recipe.count_likes = 0
         recipe.users_likes = ''
@@ -195,8 +196,10 @@ def create_recipes():
             msg = 'Укажите время приготовления'
         elif recipe.text == '':
             msg = 'Укажите рецепт'
+        elif recipe.ingredients == '':
+            msg = 'Укажите ингредиенты'
 
-        if recipe.name == '' or recipe.text == '' or recipe.time == '':
+        if recipe.name == '' or recipe.text == '' or recipe.time == '' or recipe.ingredients == '':
             return render_template('create_recipes.html', form=form, msg=msg)
 
         file = form.photo.data
@@ -224,6 +227,7 @@ def edit_recipe(id):
             form.name.data = recipe.name
             form.text.data = recipe.text
             form.time.data = recipe.time
+            form.ingredients.data = recipe.ingredients
             form.is_private.data = recipe.is_private
 
     if form.validate_on_submit():
@@ -231,6 +235,7 @@ def edit_recipe(id):
             recipe.name = form.name.data
             recipe.text = form.text.data
             recipe.time = form.time.data
+            recipe.ingredients = form.ingredients.data
             recipe.is_private = form.is_private.data
             file = form.photo.data
             if file:
@@ -247,18 +252,49 @@ def edit_recipe(id):
 def recipe_delete(id):
     db_sess = db_session.create_session()
     recipe = db_sess.query(Recipes).filter(Recipes.id == id).first()
-    user = db_sess.query(User).filter(User.id == current_user.id).first()
     db_sess.delete(recipe)
     db_sess.query(Comments).filter(Comments.recipe_id == 3).delete()
-    try:
-        liked_recipes = user.liked_recipes.split(',')
-        liked_recipes.remove(str(id))
-        liked_recipes = [r for r in liked_recipes if r != '']
-        user.liked_recipes = ','.join(liked_recipes) + ','
-    except: pass
+
+    for user in db_sess.query(User).all():
+        try:
+            liked_recipes = user.liked_recipes.split(',')
+            liked_recipes.remove(str(id))
+            liked_recipes = [r for r in liked_recipes if r != '']
+            user.liked_recipes = ','.join(liked_recipes) + ','
+        except: pass
 
     db_sess.commit()
     return redirect(url_for('my_recipes'))
+
+
+@app.route('/delete_profile', methods=['GET', 'POST'])
+@login_required
+def delete_profile():
+    db_sess = db_session.create_session()
+    id = current_user.id
+    list_recipes_user = [str(recipe.id) for recipe in db_sess.query(Recipes).filter(Recipes.user_id == id)]
+
+    for recipe in db_sess.query(Recipes).all():
+        try:
+            recipe.count_likes = int(recipe.count_likes) - 1
+            users_likes = recipe.users_likes.split(',')
+            users_likes.remove(str(id))
+            users_likes = [r for r in users_likes if r != '']
+            recipe.users_likes = ','.join(users_likes) + ','
+        except: pass
+
+    for user in db_sess.query(User).all():
+        try:
+            need_recipes = [recipe for recipe in user.liked_recipes.split(',') if recipe not in list_recipes_user]
+            user.liked_recipes = ','.join(need_recipes)
+        except: pass
+
+    db_sess.query(Comments).filter(Comments.user_id == id).delete()
+    db_sess.query(Recipes).filter(Recipes.user_id == id).delete()
+    user = db_sess.query(User).filter(User.id == id).first()
+    db_sess.delete(user)
+    db_sess.commit()
+    return redirect('/')
 
 
 @app.route('/restaurants', methods=['GET', 'POST'])
@@ -267,7 +303,7 @@ def restaurant():
         city = request.form['search_req']
         geocoder_request = f"http://geocode-maps.yandex.ru/1.x/?apikey=40d1649f-0493-4b70-98ba-98533de7710b&geocode={city}&format=json"
         response = requests.get(geocoder_request)
-        print(response.url)
+
         if not response:
             return render_template("restaurants.html", msg='Не понял.')
 
@@ -321,10 +357,10 @@ def edit_profile_user():
         form.name_edit.data = current_user.name
         form.surname_edit.data = current_user.surname
         form.email_edit.data = current_user.email
-    if form.validate_on_submit():
+    if request.method == 'POST':
         user = db_sess.query(User).filter(User.id == current_user.id).first()
 
-        if form.email_edit.data in [user.email for user in db_sess.query(User)]:
+        if form.email_edit.data != user.email and form.email_edit.data in [user.email for user in db_sess.query(User)]:
             form.email_edit.data = ""
             return render_template('edit_profile.html', form=form, message='Такой пользователь уже существует')
 
@@ -354,7 +390,7 @@ def profile_user():
 @app.route('/home')
 @login_required
 def home_user():
-    return render_template('home.html')
+    return render_template('home.html', home=True)
 
 
 @app.errorhandler(404)

@@ -5,7 +5,11 @@
    font-family: sans-serif;
    list-style: none;
    text-decoration: none;
-   background-color: #cbb2a8;
+}
+
+body {
+   background-color: #696969;
+
 }
 
 header {
@@ -55,6 +59,70 @@ header nav ul li a:hover {
    text-decoration: none;
 }
 
+.fon-img {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+
+.fon-img img {
+    width: 100%;
+    filter: blur(3px);
+}
+
+.block-text {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 60%;
+    height: 50%;
+    border-radius: 50px;
+}
+
+.about-site {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0);
+    color: #a8a8a8;
+    width: 90%;
+    font-family: monospace;
+    font-size: 0.5cm;
+}
+
+.feedback {
+    background-color: #696969;
+    text-align: center;
+}
+
+.inform-text {
+    background-color: #696969;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.name-inform{
+    position: relative;
+    bottom: 10px;
+    background-color: #696969;
+    color: #dbdbdb;
+    top: 20px;
+
+}
+
+.phone,
+.email{
+    position: relative;
+    background-color: #696969;
+    color: #a8a8a8;
+    top: 30px;
+    margin-bottom: 5px;
+}
 
 .avat-name {
     display: inline;
@@ -85,7 +153,7 @@ div li {
 div li ul {
    position: absolute;
    top: 55px;
-   right: 100px;
+   right: 5%;
    width: 200px;
    display: none;
 }
@@ -107,10 +175,9 @@ div li ul li a {
 }
 
 div li ul li a:hover {
-   color: #9e6550;
-
+    color: #9e6550;
     background-color: #f0f0f0;
-   text-decoration: none;
+    text-decoration: none;
 }
 
 .btn-come {
@@ -136,8 +203,8 @@ div li ul li a:hover {
 }
 
 .btn-regist:hover {
-   background-color: #c8a99e;
-   color: #ffffff;
+    background-color: #c8a99e;
+    color: #ffffff;
     outline: none;
 }
 

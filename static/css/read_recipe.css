@@ -1,3 +1,7 @@
+body {
+   background-color: #c9c0bb;
+}
+
 .field {
     max-width: 850px;
     margin: 0 auto;
@@ -69,6 +73,7 @@
     word-break: break-all;
 }
 
+.ingredients-just,
 .recipe-just {
     color: #1a1a1a;
     background-color: #ffffff;
@@ -79,9 +84,11 @@
     font-size: 0.45cm;
 }
 
+.ingredients,
 .recipe {
     background-color: #ffffff;
     word-break: break-all;
+    white-space: pre-wrap;
 }
 
 .text {
@@ -150,7 +157,6 @@
     background-color: #ffffff;
     margin-left: 30px;
     margin-right: 20px;
-    margin-bottom: 10px;
 }
 
 .btns {
@@ -171,7 +177,7 @@
     font-weight: 400;
     font-size: 0.45cm;
     bottom: 20px;
-    margin-top: 20px;
+    top: -13px;
     margin-left: -10px;
 }
 
@@ -197,7 +203,7 @@
     font-weight: 400;
     font-size: 0.45cm;
     bottom: 20px;
-    margin-top: 20px;
+    top: -13px;
 }
 
 .btn-delete-recipe:focus,
@@ -309,6 +315,7 @@ textarea {
 
 .email {
     color: #4d4d4d;
+    top: 0px;
 }
 .text-comment {
     background-color: #f5f5f5;
@@ -317,6 +324,7 @@ textarea {
     max-width: 730px;
     word-break: break-all;
     margin-top: -40px;
+    white-space: pre-wrap;
 }
 
 .form-comment {
@@ -325,6 +333,5 @@ textarea {
 
 .btns {
     background-color: #ffffff;
-
 }
 

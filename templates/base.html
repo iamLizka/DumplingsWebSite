@@ -8,9 +8,7 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/base.css">
-
 </head>
-
 
 <body>
     <header>
@@ -40,11 +38,32 @@
         <button class="btn-regist" type="button" onclick="location.href='regist'">Регистрация</button>
         <button class="btn-come" type="button" onclick="location.href='login'">Войти</button>
     </div>
-
    {% endif %}
-
    </header>
-
+    {% if home %}
+   <div class="fon-img">
+       <img src="/static/images/fon.jpg">
+       <div class="block-text">
+           <div class="about-site">
+               Добро пожаловать на наш сайт, где вы можете окунуться в мир кулинарных открытий!
+               Здесь вы найдете огромную коллекцию рецептов разнообразных блюд от лучших кулинаров
+               со всего мира. Вы сможете не только узнать, как приготовить любимые блюда,
+               но и поделиться своими собственными кулинарными шедеврами с нашим сообществом.<br>
+               Кроме того, на нашем сайте вы сможете найти лучшие рестораны вашего города,
+               предлагающие уникальные блюда из различных кухонь мира.<br>
+               Присоединяйтесь к нашему сообществу любителей кулинарии, делимся рецептами,
+               открываем новые вкусы и находим лучшие кулинарные заведения вместе!
+           </div>
+       </div>
+   </div>
+    <div class="feedback">
+        <div class="inform-text">
+            <div class="name-inform">Обратная связь</div>
+            <div class="email">nepisat@lox.ru</div>
+            <div class="phone">+ 3 (888) 888-8888</div>
+        </div>
+    </div>
+    {% endif %}
 
 <main>
     {% block content %}{% endblock %}

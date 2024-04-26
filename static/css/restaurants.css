@@ -1,3 +1,7 @@
+body {
+   background-color: #c9c0bb;
+}
+
 form {
     position: relative;
     max-width: 600px;

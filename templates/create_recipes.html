@@ -18,11 +18,15 @@
         </p>
         <p class="form-recipes">
             {{ form.time.label }}<br>
-            {{ form.time(class="form-control", type="time") }}<br>
+            {{ form.time(class="form-control", type="text") }}<br>
         </p>
         <p class="form-recipes">
             {{ form.text.label }}<br>
-            {{ form.text(class="form-control", type="text") }}<br>
+            <p> {{ form.text(class="form-control", type="text") }} </p><br>
+        </p>
+        <p class="form-recipes">
+            {{ form.ingredients.label }}<br>
+            {{ form.ingredients(class="form-control", type="text") }}<br>
         </p>
 
         <p class="agree">{{ form.is_private(class="agree-box") }} {{ form.is_private.label }}</p>

@@ -1,3 +1,7 @@
+body {
+   background-color: #c9c0bb;
+}
+
 .screen {
     position: relative;
     height: 100vh;

@@ -1,9 +1,13 @@
+body {
+   background-color: #ffffff;
+}
+
 .login-fon {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 750px;
+    height: 100%;
 }
 
 .form {
