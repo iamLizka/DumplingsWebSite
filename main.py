@@ -86,7 +86,7 @@ def regist():
             user.set_password(form.password.data)
             db_sess.commit()
             login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('home_user'))
+        return redirect(url_for('home'))
     return render_template('register.html', form=form)
 
 
